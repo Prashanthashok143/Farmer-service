@@ -1,6 +1,6 @@
 import { Farmer } from "../models/Farmer";
 import bcrypt from "bcryptjs";
-import { uploadToCloudinary } from "../utils/cloudinaryUpload";
+// import { uploadToCloudinary } from "../utils/cloudinaryUpload";
 
 class FarmerService {
 
@@ -16,9 +16,9 @@ class FarmerService {
         let profileImageUrl: string | undefined;
         let farmImageUrls: string[]  = [];
          if (files?.profileImage) {
-      const result: any = await uploadToCloudinary(files.profileImage.data, "farmers/profileImages");
-      console.log("result",result.secure_url)
-      profileImageUrl = result.secure_url;
+    //   const result: any = await uploadToCloudinary(files.profileImage.data, "farmers/profileImages");
+    //   console.log("result",result.secure_url)
+    //   profileImageUrl = result.secure_url;
     }
         
         const newFarmer = new Farmer({
