@@ -4,31 +4,41 @@ import { FarmerProfile } from '../types/farmer';
 const  FarmerSchema = new Schema<FarmerProfile>({
     name:{
         type: String,
-        required:true
+        required:true,
+        trim:true, // Removes extra spaces before and after
     } ,
     phone:{
         type: String,
         required:true,
-        unique:true,
+        match:/^[0-9]{10}$/,
     },
     email:{
         type:String,
-        unique:true,
+        unique:true, // creates a unique index in the db , means no two farmers can have same email
+        required:true,
+        lowercase:true, // automically converts to lowercase
+        trim:true, 
     },
     password:{
         type:String,
         required:true,
+        minLength:6
     },
     location:{
         address: String,
         city: String,
         state: String,
         zipCode: String,
-        country: String,
+        country: {type:String, default:"India"},
     },
-    profileImage:String,
-    farmImages:String,
-    bio:String ,
+    profileImage:{
+        type:String,
+        default:"",
+    },
+    bio:{
+        type:String,
+        maxLength:300,
+    },
 },
 { timestamps: true}
 );
