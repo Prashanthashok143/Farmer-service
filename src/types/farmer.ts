@@ -11,7 +11,6 @@ export interface FarmerProfile {
         country: string;    
     };
     profileImage?: string; 
-    farmImages?: string;
     bio?: string;
     createdAt: Date;
     updatedAt: Date;
