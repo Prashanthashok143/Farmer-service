@@ -4,9 +4,11 @@ import {
   generateCloudinaryPresignedUrl,
   uploadToCloudinary,
 } from "../utils/cloudinaryUpload";
+import  { FarmValidator }  from "../zod/Farm";
+import { FarmModel } from "../models/Farm";
 
 class FarmerService {
-  static async register(body: any, files: any) {
+  public async register(body: any, files: any) {
     const { email, phone, password } = body;
     // construct location object bcuz body.location is flat object as we are sending form-data and not integrated with frontend directly
     const location ={
@@ -56,6 +58,19 @@ class FarmerService {
     await newFarmer.save();
     return newFarmer;
   }
+
+
+  public async Farmdetails(farmInfo:any){
+   
+        const farmData = await FarmValidator.safeParse(farmInfo);
+        if(!farmData.success){
+          throw new Error("Invalid farm details");
+        }
+        const farmDetails = await FarmModel.create(farmData.data);
+        return farmDetails;
+     
+  }
+
 }
 
-export { FarmerService };
+export default new FarmerService;
